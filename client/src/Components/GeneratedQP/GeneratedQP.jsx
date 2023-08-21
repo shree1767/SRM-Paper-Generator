@@ -1,7 +1,20 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { FaDownload } from 'react-icons/fa';
+import Confetti from 'react-confetti';
 
 const GeneratedQP = () => {
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  useEffect(() => {
+    setShowConfetti(true);
+    const timeout = setTimeout(() => {
+      setShowConfetti(false);
+    }, 3000); 
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const handleDownload = ()=>{}
 
@@ -23,6 +36,7 @@ const GeneratedQP = () => {
           </button>
         </div>
       </div>
+      {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
     </div>
   );
 };

@@ -37,7 +37,6 @@ const Next = () => {
         Question Paper Generator
       </h1>
       <div className="mx-auto w-20 h-1 bg-[#0C4DA1] my-4 md:w-[5vw] md:h-[5px] md:my-8" />
-
       <form
         onSubmit={handleFormSubmit}
         className="flex flex-col space-y-3 md:w-2/3 lg:w-1/2 mx-auto"
