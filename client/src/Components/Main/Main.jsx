@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom'
 import Dropdown from 'react-dropdown-select';
 import './Main.css'
+
 const Main = () => {
+
   const [department, setDepartment] = useState('');
   const [year, setYear] = useState('');
   const [courseCode, setCourseCode] = useState('');
   const [dateOfExam, setDateOfExam] = useState('');
-  const [markingScheme, setMarkingScheme] = useState('');
+  const [timing, setTiming] = useState('');
 
-  const markingSchemeOptions = [
-    { value: 'scheme1', label: 'Scheme 1' },
-    { value: 'scheme2', label: 'Scheme 2' },
+  const departmentOptions = [
+    { value: 'dsbs', label: 'DSBS' },
+    { value: 'cintel', label: 'CINTEL' },
   ];
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // You can handle the form submission logic here
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
   };
+  
 
   return (
     <div className="mx-auto p-8 md:p-20 mt-12 h-[93vh] justify-center bg-[#F6F6F6]">
@@ -25,12 +28,12 @@ const Main = () => {
 
       <form onSubmit={handleFormSubmit} className="flex flex-col space-y-3 md:w-2/3 lg:w-1/2 mx-auto">
         <label className="block font-medium">Department</label>
-        <input
-          type="text"
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-          className="border rounded p-2"
-          placeholder="DSBS"
+        <Dropdown
+          options={departmentOptions}
+          values={[department]}
+          onChange={(values) => setDepartment(values[0])}
+          className="bg-white py-2"
+          placeholder='DSBS'
         />
 
         <label className="block font-medium">Year</label>
@@ -39,16 +42,16 @@ const Main = () => {
           value={year}
           onChange={(e) => setYear(e.target.value)}
           className="border rounded p-2"
-          placeholder="2022-2023"
+          placeholder="ex.2022-2023"
         />
 
-        <label className="block font-medium">Course Code/Subject</label>
+        <label className="block font-medium">Course Code</label>
         <input
           type="text"
           value={courseCode}
           onChange={(e) => setCourseCode(e.target.value)}
           className="border rounded p-2"
-          placeholder="18PY3101J-OOPS"
+          placeholder="ex.18PY3101J"
         />
 
         <label className="block font-medium">Date of Exam</label>
@@ -59,22 +62,21 @@ const Main = () => {
           className="border rounded p-2 my-2"
         />
 
-        <label className="block font-medium">Marking Scheme</label>
-        <Dropdown
-          options={markingSchemeOptions}
-          values={[markingScheme]}
-          onChange={(values) => setMarkingScheme(values[0])}
-          className="bg-white py-2"
+  <label className="block font-medium">Timing</label>
+        <input
+          type="text"
+          value={timing}
+          onChange={(e) => setTiming(e.target.value)}
+          className="border rounded p-2"
+          placeholder='60 mins'
         />
 
         <div className="flex justify-center">
-          <button
-            type="submit"
-            className="custom-button  mt-5  hover:text-black py-3 px-8 md:px-16"
-          >
-            <span class="button-text">GENERATE</span>
-          </button>
-        </div>
+          <Link to="/next" className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16">
+            <span className="button-text">NEXT</span>
+          </Link>
+        </div>  
+
       </form>
     </div>
   );
