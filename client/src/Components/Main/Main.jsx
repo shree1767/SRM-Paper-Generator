@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom'
 import Dropdown from 'react-dropdown-select';
+import { IoIosArrowForward } from 'react-icons/io';
 import './Main.css'
 
 const Main = () => {
@@ -14,6 +15,7 @@ const Main = () => {
   const departmentOptions = [
     { value: 'dsbs', label: 'DSBS' },
     { value: 'cintel', label: 'CINTEL' },
+    { value: 'computernetworking', label: 'Computer Networking' },
   ];
 
   const handleFormSubmit = (event) => {
@@ -73,7 +75,9 @@ const Main = () => {
 
         <div className="flex justify-center">
           <Link to="/next" className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16">
-            <span className="button-text">NEXT</span>
+            <span className="button-text"> 
+            <IoIosArrowForward className="icon" /> 
+            </span>
           </Link>
         </div>  
 

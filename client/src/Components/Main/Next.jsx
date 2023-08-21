@@ -10,7 +10,6 @@ const Next = () => {
 
     const markingSchemeOptions = [
         { value: 'scheme1', label: '5x(1 mark), 2x(10 mark)' },
-        { value: 'scheme2', label: 'Scheme 2' },
       ];
 
     const semesterOptions = [
@@ -25,9 +24,6 @@ const Next = () => {
     ];
     const examtypeOptions = [
         { value: 'ct1', label: 'CT-1' },
-        { value: 'ct2', label: 'CT-2' },
-        { value: 'ct3', label: 'CT-3' },
-        { value: 'ct4', label: 'End Semester' },
     ];
 
       
@@ -74,7 +70,7 @@ const Next = () => {
 
         <div className="flex justify-center">
           <Link
-            to="/next"
+            to="/generated"
             className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16"
           >
             <span className="button-text">GENERATE</span>

@@ -3,6 +3,7 @@ import './App.css';
 import Next from './Components/Main/Next';
 import Navbar from './Components/Navbar/Navbar';
 import Main from './Components/Main/Main';
+import GeneratedQP from './Components/GeneratedQP/GeneratedQP';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main/>}/>
         <Route path='/next' element={<Next/>}/>
+        <Route path='/generated' element={<GeneratedQP/>}/>
       </Routes>
     </div>
   );
