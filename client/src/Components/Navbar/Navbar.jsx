@@ -11,7 +11,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-white shadow-lg py-2 px-4 md:px-12 flex justify-between items-center border-t-[8px] border-[#0C4DA1] fixed w-full top-0">
+        <nav className="bg-white shadow-lg py-2 px-4 md:px-[5vw] flex justify-between items-center border-t-[8px] border-[#0C4DA1] fixed w-full top-0">
             <div className="flex items-center">
                 <Link to='/'><img src={logo} alt="Logo" className="md:w-[12vw] w-[30vw]" /></Link>
             </div>

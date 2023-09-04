@@ -37,7 +37,7 @@ const Main = () => {
           className="bg-white py-2"
           placeholder='DSBS'
         />
-
+        {/* Can be removed & kept inside editable template */}
         <label className="block font-medium">Year</label>
         <input
           type="text"
@@ -55,7 +55,7 @@ const Main = () => {
           className="border rounded p-2"
           placeholder="ex.18PY3101J"
         />
-
+        {/* Can be removed & kept inside editable template */}
         <label className="block font-medium">Date of Exam</label>
         <input
           type="date"
@@ -63,8 +63,8 @@ const Main = () => {
           onChange={(e) => setDateOfExam(e.target.value)}
           className="border rounded p-2 my-2"
         />
-
-  <label className="block font-medium">Timing</label>
+        {/* Can be removed & kept inside editable template */}
+        <label className="block font-medium">Timing</label>
         <input
           type="text"
           value={timing}
