@@ -18,7 +18,7 @@
     width: 100%;
     height: 100%;
     background-color: #E4B315;
-    transition: left 0.3s ease;
+    transition: left 0.2s ease-in-out;
   }
   
   .custom-button:hover::before {
