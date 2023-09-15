@@ -2,4 +2,4 @@
 
 ## Documentation
 
-[Link](https://documenter.getpostman.com/view/25484202/2s9YC5yY1y)
+<a href="https://documenter.getpostman.com/view/25484202/2s9YC5yY1y" target="_blank">Link</a>
