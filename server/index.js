@@ -21,7 +21,11 @@ const authRoutes = require("./routes/auth");
 const questionRoutes = require("./routes/questions");
 
 app.use("/auth", authRoutes);
-app.use("/question", questionRoutes);
+app.use(
+  "/question",
+  passport.authenticate("jwt", { session: false }),
+  questionRoutes,
+);
 
 // MongoDB Config and server start
 mongoose
