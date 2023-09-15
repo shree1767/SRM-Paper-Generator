@@ -1,9 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
-const { addMCQ, getMCQ } = require("../controllers/questions");
+const {
+  addObjective,
+  getObjective,
+  addSubjective,
+  getSubjective,
+} = require("../controllers/questions");
 
-router.post("/mcq", addMCQ);
-router.get("/mcq", getMCQ);
+router.get("/objective", getObjective);
+router.post("/objective", addObjective);
+router.get("/subjective", getSubjective);
+router.post("/subjective", addSubjective);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const QuestionMCQSchema = new Schema({
+const ObjectiveQuestionSchema = new Schema({
   question: {
     type: String,
     required: true,
@@ -19,10 +19,6 @@ const QuestionMCQSchema = new Schema({
     },
     required: true,
   },
-  marks: {
-    type: Number,
-    required: true,
-  },
   department: {
     type: String,
     enum: ["CSE", "ECE", "EEE", "MECH", "CIVIL"],
@@ -32,13 +28,8 @@ const QuestionMCQSchema = new Schema({
     type: String,
     required: true,
   },
-  semester: {
-    type: Number,
-    enum: [1, 2, 3, 4, 5, 6, 7, 8],
-    required: true,
-  },
 });
 
-const QuestionMCQ = model("QuestionMCQ", QuestionMCQSchema);
+const ObjectiveQuestion = model("Objective_Question", ObjectiveQuestionSchema);
 
-module.exports = QuestionMCQ;
+module.exports = ObjectiveQuestion;

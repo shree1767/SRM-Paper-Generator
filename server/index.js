@@ -19,12 +19,18 @@ app.use(cors());
 // Routes
 const authRoutes = require("./routes/auth");
 const questionRoutes = require("./routes/questions");
+const generateRoutes = require("./routes/generate");
 
 app.use("/auth", authRoutes);
 app.use(
   "/question",
   passport.authenticate("jwt", { session: false }),
   questionRoutes,
+);
+app.use(
+  "/generate",
+  passport.authenticate("jwt", { session: false }),
+  generateRoutes,
 );
 
 // MongoDB Config and server start

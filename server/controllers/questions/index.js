@@ -1,4 +1,6 @@
-const addMCQ = require("./addMCQ");
-const getMCQ = require("./getMCQ");
+const addObjective = require("./addObjective");
+const getObjective = require("./getObjective");
+const addSubjective = require("./addSubjective");
+const getSubjective = require("./getSubjective");
 
-module.exports = { addMCQ, getMCQ };
+module.exports = { addObjective, getObjective, addSubjective, getSubjective };
