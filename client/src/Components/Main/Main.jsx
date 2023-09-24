@@ -1,25 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Dropdown from "react-dropdown-select";
 
 import "./Main.css";
+import { Link } from "react-router-dom";
 
 const Main = () => {
-  const [department, setDepartment] = useState("");
   const [courseCode, setCourseCode] = useState("");
   const [semester, setSemester] = useState("");
   const [examtype, setExamtype] = useState("ct1");
-  const [markingScheme, setMarkingScheme] = useState("scheme1");
-
-  const departmentOptions = [
-    { value: "dsbs", label: "DSBS" },
-    { value: "cintel", label: "CINTEL" },
-    { value: "computernetworking", label: "Computer Networking" },
-  ];
-
-  const markingSchemeOptions = [
-    { value: "scheme1", label: "5x(1 mark), 2x(10 mark)" },
-  ];
+  const [markScheme, setMarkScheme] = useState({
+    mcq: "",
+    subjectiveMarks: {
+      2: "",
+      3: "",
+    },
+  });
 
   const semesterOptions = [
     { value: "1", label: "I" },
@@ -31,10 +26,24 @@ const Main = () => {
     { value: "7", label: "VII" },
     { value: "8", label: "VIII" },
   ];
+
   const examtypeOptions = [{ value: "ct1", label: "CT-1" }];
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  const generatePaper = async () => {
+    let response = await fetch(
+      "http://localhost:8000/generate?courseCode={courseCode}&markScheme={markScheme}",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      {
+        courseCode: courseCode,
+        markScheme: markScheme,
+      }
+    );
+    response = await response.json();
   };
 
   return (
@@ -45,17 +54,11 @@ const Main = () => {
       <div className="mx-auto w-20 h-1 bg-[#0C4DA1] my-4 md:w-[5vw] md:h-[5px] md:my-8" />
 
       <form
-        onSubmit={handleFormSubmit}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         className="flex flex-col space-y-3 md:w-2/3 lg:w-1/2 mx-auto"
       >
-        <label className="block font-medium">Department</label>
-        <Dropdown
-          options={departmentOptions}
-          values={[department]}
-          onChange={(values) => setDepartment(values[0])}
-          className="bg-white py-2"
-          placeholder="DSBS"
-        />
         <label className="block font-medium">Course Code</label>
         <input
           type="text"
@@ -63,6 +66,7 @@ const Main = () => {
           onChange={(e) => setCourseCode(e.target.value)}
           className="border rounded p-2"
           placeholder="ex.18PY3101J"
+          required
         />
         <label className="block font-medium">Semester</label>
         <Dropdown
@@ -70,6 +74,7 @@ const Main = () => {
           values={[semester]}
           onChange={(values) => setSemester(values[0])}
           className="bg-white py-2"
+          required
         />
         <label className="block font-medium">Exam type</label>
         <Dropdown
@@ -77,20 +82,70 @@ const Main = () => {
           values={[examtype]}
           onChange={(values) => setExamtype(values[0])}
           className="bg-white py-2"
+          required
         />
         <label className="block font-medium">Marking Scheme</label>
-        <Dropdown
-          options={markingSchemeOptions}
-          values={[markingScheme]}
-          onChange={(values) => setMarkingScheme(values[0])}
-          className="bg-white py-2"
-        />
+        <div className="md:flex md:space-x-5 md:space-y-0 space-y-2 justify-between">
+          <div>
+            <label className="font-regular text-sm pr-3">MCQs</label>
+            <input
+              type="number"
+              value={markScheme.mcq}
+              onChange={(e) =>
+                setMarkScheme({ ...markScheme, mcq: parseInt(e.target.value) })
+              }
+              className="border rounded p-2 w-20"
+              placeholder=""
+              required
+            />
+          </div>
+          <div>
+            <label className="font-regular text-sm pr-3">2 Mark</label>
+            <input
+              type="number"
+              value={markScheme.subjectiveMarks[2]}
+              onChange={(e) =>
+                setMarkScheme({
+                  ...markScheme,
+                  subjectiveMarks: {
+                    ...markScheme.subjectiveMarks,
+                    2: parseInt(e.target.value),
+                  },
+                })
+              }
+              className="border rounded p-2 w-20"
+              placeholder=""
+              required
+            />
+          </div>
+          <div>
+            <label className="font-regular text-sm pr-3">3 Mark</label>
+            <input
+              type="number"
+              value={markScheme.subjectiveMarks[3]}
+              onChange={(e) =>
+                setMarkScheme({
+                  ...markScheme,
+                  subjectiveMarks: {
+                    ...markScheme.subjectiveMarks,
+                    3: parseInt(e.target.value),
+                  },
+                })
+              }
+              className="border rounded p-2 w-20"
+              placeholder=""
+              required
+            />
+          </div>
+        </div>
         <div className="flex justify-center">
-          <Link
-            to="/generated"
-            className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16">
+          <button
+            type="submit"
+            onClick={generatePaper}
+            className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16"
+          >
             <span className="button-text">GENERATE</span>
-          </Link>
+          </button>
         </div>
       </form>
     </div>

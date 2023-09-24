@@ -8,7 +8,7 @@ const cors = require("cors");
 
 // Initialize express app
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 // Middleware
 app.use(express.json());
@@ -29,7 +29,7 @@ app.use(
 );
 app.use(
   "/generate",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   generateRoutes,
 );
 
