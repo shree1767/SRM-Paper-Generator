@@ -11,15 +11,16 @@ const generate = async (req, res) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const { courseCode, markScheme } = req.query;
+    const { courseCode, markScheme } = req.body;
 
     const { mcq, ...subjectiveMarks } = markScheme;
+    const subjectiveMarksExists = Object.keys(subjectiveMarks).length > 0;
 
     const getSubjectiveQuestions = async (marks) => {
       const questions = await SubjectiveQuestion.aggregate([
         { $match: { courseCode, marks } },
         { $sample: { size: markScheme[marks] } },
-        { $project: { _id: 0, department: 0, courseCode: 0 } },
+        { $unset: { _id: 0, question: 1 } },
       ]);
       if (questions.length < markScheme[marks]) {
         throw new Error(`Not enough ${marks} mark questions`);
@@ -27,31 +28,42 @@ const generate = async (req, res) => {
       return questions;
     };
 
-    const [objective, subjectiveArray] = await Promise.all([
-      ObjectiveQuestion.aggregate([
+    const getObjectiveQuestions = async (marks) => {
+      const questions = await ObjectiveQuestion.aggregate([
         { $match: { courseCode } },
         { $sample: { size: mcq } },
-        { $project: { _id: 0, answer: 0, department: 0, courseCode: 0 } },
-      ]),
-      Promise.all(
+        {
+          $project: {
+            _id: 0,
+            question: 1,
+            options: 1,
+          },
+        },
+      ]);
+      if (questions.length < markScheme[marks]) {
+        throw new Error(`Not enough ${marks} mark questions`);
+      }
+      return questions;
+    };
+
+    const [objective, subjective] = await Promise.all([
+      getObjectiveQuestions(mcq),
+      subjectiveMarksExists &&
         Object.keys(subjectiveMarks).map((marks) =>
           getSubjectiveQuestions(marks),
         ),
-      ),
     ]);
 
-    const subjective = {};
-    Object.keys(subjectiveMarks).forEach((marks, index) => {
-      subjective[marks] = subjectiveArray[index];
-    });
+    const response = { objective };
+    if (subjectiveMarksExists) response.subjective = subjective;
 
-    return res.status(200).json({ objective, subjective });
+    return res.status(200).json(response);
   } catch (error) {
     console.error(error);
     return res.status(400).json({ message: error.message });
   }
 };
 
-router.get("/", generate);
+router.post("/", generate);
 
 module.exports = router;
