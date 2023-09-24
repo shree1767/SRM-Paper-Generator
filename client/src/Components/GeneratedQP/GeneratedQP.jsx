@@ -1,11 +1,24 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { FaDownload, FaEdit } from 'react-icons/fa';
 import Template from './Template';
-const GeneratedQP = () => {
-  const templateRef = useRef(null);
+import JsPDF from "jspdf";
+import html2canvas from 'html2canvas';
 
-  const handleDownload = () => {
-   
+const GeneratedQP = () => {
+
+  const generatePDF = () => {
+    const report = new JsPDF("portrait", "pt");
+
+    const elementToConvert = document.querySelector("#report");
+
+    html2canvas(elementToConvert).then((canvas) => {
+
+      const imgData = canvas.toDataURL("image/jpeg");
+
+      report.addImage(imgData, "JPEG",10, 10, 590, 800);
+
+      report.save("report.pdf");
+    });
   };
 
   return (
@@ -20,19 +33,19 @@ const GeneratedQP = () => {
           </p>
         </div>
         <div className="flex space-x-10 mt-4 md:mt-0">
-          <button className="flex items-center text-[#0C4DA1] hover:text-black" onClick={handleDownload}>
+          <button className="flex items-center text-[#0C4DA1] hover:text-black" onClick={generatePDF}>
             <span className="mr-3">Edit Template</span>
             <FaEdit className='w-5 h-5'/>
           </button>
-          <button className="flex items-center text-[#0C4DA1] hover:text-black" onClick={handleDownload}>
+          <button className="flex items-center text-[#0C4DA1] hover:text-black" onClick={generatePDF}>
             <span className="mr-3">Print</span>
             <FaDownload className='w-5 h-5'/>
           </button>
         </div>
       </div>
       {/* display generated question paper here */}
-      <div ref={templateRef}>
-        <Template />
+      <div id='report'>
+        <Template/>
       </div>
       {/* / */}
     </div>

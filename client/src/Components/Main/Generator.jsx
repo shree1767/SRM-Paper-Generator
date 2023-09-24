@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "react-dropdown-select";
 
 import "./Main.css";
-import { Link } from "react-router-dom";
 
-const Main = () => {
+const Generator = () => {
   const [courseCode, setCourseCode] = useState("");
   const [semester, setSemester] = useState("");
   const [examtype, setExamtype] = useState("ct1");
@@ -33,7 +32,7 @@ const Main = () => {
     let response = await fetch(
       "http://localhost:8000/generate?courseCode={courseCode}&markScheme={markScheme}",
       {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -47,7 +46,7 @@ const Main = () => {
   };
 
   return (
-    <div className="mx-auto p-8 md:p-20 mt-12 h-[93vh] justify-center bg-[#F6F6F6]">
+    <div className="mx-auto p-8 md:p-20 mt-20 h-[90vh] flex-col items-center justify-center bg-[#F6F6F6]">
       <h1 className="text-2xl md:text-4xl text-center font-medium mb-2 md:mb-4 mt-10 md:mt-0">
         Question Paper Generator
       </h1>
@@ -57,7 +56,7 @@ const Main = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="flex flex-col space-y-3 md:w-2/3 lg:w-1/2 mx-auto"
+        className="flex flex-col space-y-3 md:w-[40%] mx-auto"
       >
         <label className="block font-medium">Course Code</label>
         <input
@@ -85,7 +84,7 @@ const Main = () => {
           required
         />
         <label className="block font-medium">Marking Scheme</label>
-        <div className="md:flex md:space-x-5 md:space-y-0 space-y-2 justify-between">
+        <div className="flex md:space-x-5 md:space-y-0 justify-between">
           <div>
             <label className="font-regular text-sm pr-3">MCQs</label>
             <input
@@ -138,13 +137,13 @@ const Main = () => {
             />
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-5">
           <button
             type="submit"
             onClick={generatePaper}
-            className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16"
+            className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16 "
           >
-            <span className="button-text">GENERATE</span>
+            <span className="button-text font-light">GENERATE</span>
           </button>
         </div>
       </form>
@@ -152,4 +151,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Generator;

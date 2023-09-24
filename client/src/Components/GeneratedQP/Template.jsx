@@ -3,6 +3,7 @@ import logo from "./assets/logo.svg";
 import "./template.css";
 
 const Template = () => {
+  
   return (
     <div className="page w-[210mm] shadow-lg h-[297mm] bg-white px-6 py-10 my-10 mx-auto justify-center items-center">
       <div className="page-content">
@@ -34,14 +35,29 @@ const Template = () => {
         <hr className="pb-5 mt-10 mx-20" />
         <div className="flex justify-between font-[600] text-[15px] space-x-10 px-20">
           <div>
-            <p>Test:<span className="font-[350]">CLAT3</span></p>
-            <p>Course Code & Title: <span className="font-[350]">18CYM101T ENVIRONMENTAL SCIENCE</span></p>
-            <p>Year & Sem: <span className="font-[350]">2022-23 EVEN</span></p>
+            <p>
+              Test:<span className="font-[350]">CLAT3</span>
+            </p>
+            <p>
+              Course Code & Title:{" "}
+              <span className="font-[350]">
+                18CYM101T ENVIRONMENTAL SCIENCE
+              </span>
+            </p>
+            <p>
+              Year & Sem: <span className="font-[350]">2022-23 EVEN</span>
+            </p>
           </div>
           <div>
-            <p>Date:<span className="font-[350]">28-04-2023</span></p>
-            <p>Duration:<span className="font-[350]">1 period</span></p>
-            <p>Max.Marks:<span className="font-[350]">25</span></p>
+            <p>
+              Date:<span className="font-[350]">28-04-2023</span>
+            </p>
+            <p>
+              Duration:<span className="font-[350]">1 period</span>
+            </p>
+            <p>
+              Max.Marks:<span className="font-[350]">25</span>
+            </p>
           </div>
         </div>
         <hr className="py-5 mt-5 mx-20" />
@@ -62,8 +78,10 @@ const Template = () => {
               <tr>
                 <td className="font-[600] text-center border">1</td>
                 <td className="pl-3 border py-3">
-                  <p className="font-[600] ">What are the advantages to Waste of Energy?</p>
-                  <ol style={{ listStyleType: 'lower-alpha' }} className="pl-3">
+                  <p className="font-[600] ">
+                    What are the advantages to Waste of Energy?
+                  </p>
+                  <ol style={{ listStyleType: "lower-alpha" }} className="pl-3">
                     <li>It is economical</li>
                     <li>Reduce volume of waste</li>
                     <li>Collection</li>

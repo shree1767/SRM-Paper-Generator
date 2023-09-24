@@ -48,13 +48,13 @@ const Login = () => {
             />
           </div>
           <div className='flex items-center justify-center'>
-            <Link to='/generator'>
+            <Link to='/home'>
             <button
               type='submit'
               onClick={handleLogin}
-              className='custom-button mt-5 hover:text-black py-3 px-8 md:px-16'
+              className='bg-[#0C4DA1] mt-5 text-white py-3 px-8 md:px-20 rounded'
             >
-              <span className="button-text">Login</span>
+              Login
             </button>
             </Link>
           </div>
