@@ -19,11 +19,6 @@ const ObjectiveQuestionSchema = new Schema({
     },
     required: true,
   },
-  department: {
-    type: String,
-    enum: ["CSE", "ECE", "EEE", "MECH", "CIVIL"],
-    required: true,
-  },
   courseCode: {
     type: String,
     required: true,

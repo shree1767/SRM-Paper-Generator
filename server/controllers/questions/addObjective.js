@@ -7,13 +7,12 @@ const addObjective = async (req, res) => {
   }
 
   try {
-    const { question, options, answer, department, courseCode } = req.body;
+    const { question, options, answer, courseCode } = req.body;
 
     const newQuestion = new ObjectiveQuestion({
       question,
       options,
       answer,
-      department,
       courseCode,
     });
 
