@@ -31,10 +31,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Compiled files
-*.js
-*.css
-*.map
 
 # Dependency lock files
 yarn.lock
