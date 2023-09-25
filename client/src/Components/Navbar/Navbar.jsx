@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import logo from './assets/logo.svg'
 import userico from './assets/user.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from "react-cookie"
+import UserContext from "../../context/UserContext"
 
 const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const {user, logout} = useContext(UserContext);
+    const navigate = useNavigate();
+    const [cookies,setCookie, removeCookie] = useCookies(['jwt']);
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
+
+    const handleLogout = async () => {
+        logout();
+        setDropdownOpen(false);
+        navigate("/");
+    }
 
     return (
         <nav className="bg-white shadow-lg py-2 px-4 md:px-[5vw] flex justify-between items-center border-t-[8px] border-[#0C4DA1] fixed w-full top-0">
@@ -30,12 +41,15 @@ const Navbar = () => {
                         >
                             Profile
                         </Link>
-                        <Link
-                            to="/"
-                            className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                        >
+                        {
+                            user &&
+                            <div
+                                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                    onClick={handleLogout}
+                            >
                             Logout
-                        </Link>
+                        </div>
+                        }
                     </div>
                 )}
             </div>

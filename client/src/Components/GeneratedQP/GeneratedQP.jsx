@@ -1,10 +1,23 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { FaDownload, FaEdit } from 'react-icons/fa';
 import Template from './Template';
 import JsPDF from "jspdf";
 import html2canvas from 'html2canvas';
-
+import Confetti from 'react-confetti';
+import './results.css'
 const GeneratedQP = () => {
+  const [showConfetti, setShowConfetti] = useState(true);
+
+  useEffect(() => {
+    // Hide the Confetti after 2 seconds
+    const timer = setTimeout(() => {
+      setShowConfetti(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   const generatePDF = () => {
     const report = new JsPDF("portrait", "pt");
@@ -22,7 +35,10 @@ const GeneratedQP = () => {
   };
 
   return (
-    <div className="mx-auto p-8 md:p-20 mt-12 h-full justify-center bg-[#F6F6F6]">
+    <div className=" mx-auto p-8 md:p-20 mt-12 h-full justify-center bg-[#F6F6F6]">
+      <div className="">
+        {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+      </div>
       <div className="flex flex-col md:flex-row justify-between items-center">
         <div className="md:items-center">
           <h1 className="text-2xl md:text-4xl font-medium mb-2 md:mb-4 mt-12 md:mt-5">

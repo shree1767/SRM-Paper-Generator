@@ -1,8 +1,15 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import UserContext from "../../context/UserContext"
+import {Link, useNavigate} from 'react-router-dom'
 import './Main.css'
 
 const Landing = () => {
+  const {user} = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) navigate("/");
+  }, [user])
   return (
     <div className='mx-auto flex md:space-x-5 space-x-5 items-center p-8 md:p-20 mt-12 h-[93vh] justify-center bg-[#F6F6F6]'>
         <div>

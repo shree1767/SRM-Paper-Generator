@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from "react-cookie";
+import UserContext from "../../context/UserContext"
 import '../Main/Main.css'
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['jwt']);
+  const {user, login} = useContext(UserContext);
 
-  const handleLogin = async() => {
-    // Add your login logic here, such as sending a request to the server
-    // with the email and password for authentication.
-    // You can use the 'email' and 'password' state variables.
+  const handleLogin = async (e, email, password) => {
+    e.preventDefault();
+    
+    const loggedIn = await login(email, password);
+    console.log(loggedIn);
+    if (loggedIn) navigate("/home");
   };
+
+  useEffect(() => {
+    if (user) navigate("/home");
+  }, [user]);
 
   return (
     <div className='mx-auto p-8 md:p-20 mt-12 h-[93vh] flex justify-center items-center bg-[#F6F6F6]'>
       <div className='p-6 rounded-lg bg-white md:w-[40%] w-[95%] md:h-4/5 h-[70%] shadow-lg flex flex-col justify-center items-center'>
         <h2 className='text-3xl font-medium mb-6'>Login</h2>
-        <form onSubmit={(e)=>{e.preventDefault();}} className='w-[70%] max-w-md'>
+        <form onSubmit={(e)=>{handleLogin(e, email, password)}} className='w-[70%] max-w-md'>
           <div className='mb-4'>
             <label htmlFor='email' className='block text-gray-700 text-md font-medium mb-2'>
               Email
@@ -47,17 +58,20 @@ const Login = () => {
               required
             />
           </div>
-          <div className='flex items-center justify-center'>
-            <Link to='/home'>
+          <div className='flex items-center mt-5 justify-evenly'>
             <button
               type='submit'
-              onClick={handleLogin}
-              className='bg-[#0C4DA1] mt-5 text-white py-3 px-8 md:px-20 rounded'
+              className='bg-[#0C4DA1] text-white py-3 px-5 md:px-20 rounded'
             >
               Login
             </button>
-            </Link>
+          
           </div>
+          <Link to='/signup' className='flex justify-evenly mt-5'>
+            <button className='text-[#0C4DA1]'>
+              Sign Up
+            </button>
+            </Link>
         </form>
       </div>
     </div>

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "react-dropdown-select";
-
+import { useNavigate } from "react-router-dom";
 import "./Main.css";
 
 const Generator = () => {
-  const [courseCode, setCourseCode] = useState("");
+  const navigate = useNavigate();
   const [semester, setSemester] = useState("");
   const [examtype, setExamtype] = useState("ct1");
+
+  const [courseCode, setCourseCode] = useState("");
   const [markScheme, setMarkScheme] = useState({
     mcq: "",
     subjectiveMarks: {
@@ -30,19 +32,23 @@ const Generator = () => {
 
   const generatePaper = async () => {
     let response = await fetch(
-      "http://localhost:8000/generate?courseCode={courseCode}&markScheme={markScheme}",
+      "http://localhost:8000/generate",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          courseCode: courseCode,
+          markScheme: markScheme,
+        })
       },
-      {
-        courseCode: courseCode,
-        markScheme: markScheme,
-      }
     );
-    response = await response.json();
+    const data = await response.json();
+
+    if(response.status === 200){
+      navigate('/results');
+    }
   };
 
   return (
