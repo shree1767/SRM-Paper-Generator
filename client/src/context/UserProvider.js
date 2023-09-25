@@ -8,14 +8,6 @@ const UserProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
   const navigate = useNavigate();
 
-  const logout = async () => {
-    if (!user) return;
-
-    removeCookie("jwt", { path: "/" });
-    setUser(null);
-    navigate("/");
-  };
-
   const login = async (email, password) => {
     const fetchOpts = {
       method: "POST",
@@ -28,6 +20,7 @@ const UserProvider = ({ children }) => {
       }),
     };
     const response = await fetch("http://localhost:8000/auth/login", fetchOpts);
+    if (response.status !== 200) return;
 
     const data = await response.json();
 
@@ -37,7 +30,41 @@ const UserProvider = ({ children }) => {
 
     setUser(data.user);
 
-    if (response.status === 200) navigate("/home");
+    navigate("/home");
+  };
+
+  const signup = async (newUser) => {
+    const body = newUser;
+    const fetchOpts = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    const response = await fetch(
+      "http://localhost:8000/auth/signup",
+      fetchOpts,
+    );
+    if (response.status !== 201) return;
+
+    const data = await response.json();
+
+    const expiration = new Date();
+    expiration.setDate(expiration.getDate() + 90);
+    setCookie("jwt", data.token, { path: "/", expires: expiration });
+
+    setUser(data.user);
+
+    navigate("/home");
+  };
+
+  const logout = async () => {
+    if (!user) return;
+
+    removeCookie("jwt", { path: "/" });
+    setUser(null);
+    navigate("/");
   };
 
   const authorize = async (token) => {
@@ -49,20 +76,20 @@ const UserProvider = ({ children }) => {
       },
     };
     const response = await fetch("http://localhost:8000/auth", fetchOpts);
+    if (response.status === 200) return;
+
     const data = await response.json();
     setUser(data.user);
 
-    if (response.status === 200) navigate("/home");
-
-    return;
+    navigate("/home");
   };
 
   useEffect(() => {
     if (cookies.jwt) authorize(cookies.jwt);
-  }, []);
+  }, [cookies]);
 
   return (
-    <UserContext.Provider value={{ user, logout, login }}>
+    <UserContext.Provider value={{ user, logout, login, signup }}>
       {children}
     </UserContext.Provider>
   );

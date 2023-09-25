@@ -7,10 +7,14 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
-  const { user } = useContext(UserContext);
+  const { user, signup } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const handleSignUp = async () => {};
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    await signup({ name, email, password, department });
+  };
 
   useEffect(() => {
     if (user) navigate("/home");
@@ -20,12 +24,7 @@ const Signup = () => {
     <div className="mx-auto p-8 md:p-20 mt-12 h-[93vh] flex justify-center items-center bg-[#F6F6F6]">
       <div className="p-6 rounded-lg bg-white md:w-[40%] w-[95%] md:h-[95%] h-[70%] shadow-lg flex flex-col justify-center items-center">
         <h2 className="text-3xl font-medium my-6">Sign Up</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-          className="w-[70%] max-w-md"
-        >
+        <form onSubmit={(e) => handleSignUp(e)} className="w-[70%] max-w-md">
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -99,15 +98,12 @@ const Signup = () => {
             />
           </div>
           <div className="flex items-center mt-5 justify-evenly">
-            <Link to="/">
-              <button
-                type="submit"
-                onClick={handleSignUp}
-                className="bg-[#0C4DA1] text-white py-3 px-5 md:px-20 rounded"
-              >
-                SignUp
-              </button>
-            </Link>
+            <button
+              type="submit"
+              className="bg-[#0C4DA1] text-white py-3 px-5 md:px-20 rounded"
+            >
+              SignUp
+            </button>
           </div>
         </form>
       </div>
