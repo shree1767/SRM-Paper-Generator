@@ -76,17 +76,18 @@ const UserProvider = ({ children }) => {
       },
     };
     const response = await fetch("http://localhost:8000/auth", fetchOpts);
-    if (response.status === 200) return;
+    if (response.status !== 200) return;
 
     const data = await response.json();
     setUser(data.user);
+    console.log(user);
 
     navigate("/home");
   };
 
   useEffect(() => {
     if (cookies.jwt) authorize(cookies.jwt);
-  }, [cookies]);
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, logout, login, signup }}>

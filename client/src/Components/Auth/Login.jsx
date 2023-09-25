@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import "../Main/Main.css";
@@ -8,7 +7,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["jwt"]);
   const { user, login } = useContext(UserContext);
 
   const handleLogin = async (e, email, password) => {
@@ -18,6 +16,7 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log(user);
     if (user) navigate("/home");
   }, [user]);
 
