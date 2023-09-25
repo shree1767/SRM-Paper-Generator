@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 
 const UserProvider = ({ children }) => {
-	const [user, setUser] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
+  const [user, setUser] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -13,6 +13,7 @@ const UserProvider = ({ children }) => {
 
     removeCookie("jwt", { path: "/" });
     setUser(null);
+    navigate("/");
   };
 
   const login = async (email, password) => {
@@ -23,8 +24,8 @@ const UserProvider = ({ children }) => {
       },
       body: JSON.stringify({
         email,
-        password
-      })
+        password,
+      }),
     };
     const response = await fetch("http://localhost:8000/auth/login", fetchOpts);
 
@@ -32,41 +33,39 @@ const UserProvider = ({ children }) => {
 
     const expiration = new Date();
     expiration.setDate(expiration.getDate() + 90);
-    setCookie('jwt', data.token, {path: '/', expires: expiration});
+    setCookie("jwt", data.token, { path: "/", expires: expiration });
 
-    console.log(response.status);
+    setUser(data.user);
 
-    
-    if (response.status === 200) return true;
-    return false;
-  }
+    if (response.status === 200) navigate("/home");
+  };
 
-	const authorize = async (token) => { 
+  const authorize = async (token) => {
     const fetchOpts = {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    }
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
     const response = await fetch("http://localhost:8000/auth", fetchOpts);
     const data = await response.json();
-		setUser(data.user);
+    setUser(data.user);
 
     if (response.status === 200) navigate("/home");
 
     return;
-  }
+  };
 
-  useEffect(() => { 
+  useEffect(() => {
     if (cookies.jwt) authorize(cookies.jwt);
-	}, [])
-	
-	return (
-		<UserContext.Provider value={{user, logout, login}}>
-			{children}
-		</UserContext.Provider>
-	);
-}
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ user, logout, login }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
 
 export default UserProvider;
