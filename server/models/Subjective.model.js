@@ -20,6 +20,10 @@ const SubjectiveQuestionSchema = new Schema({
     ref: "Course",
     required: false,
   },
+  unit: {
+    type: Number,
+    required: true,
+  },
   courseOutcome: {
     type: String,
     required: true,
@@ -29,6 +33,10 @@ const SubjectiveQuestionSchema = new Schema({
     required: true,
   },
   bloomsLevel: {
+    type: String,
+    required: true,
+  },
+  piCode: {
     type: String,
     required: true,
   },

@@ -36,9 +36,11 @@ const addObjectiveQuestionController = async (req, res) => {
       question,
       options,
       courseCode,
+      unit,
       courseOutcome,
       programOutcome,
       bloomsLevel,
+      piCode,
     } = req.body;
     const imageFile = req.file;
 
@@ -46,20 +48,24 @@ const addObjectiveQuestionController = async (req, res) => {
       !question ||
       !options ||
       !courseCode ||
+      !unit ||
       !courseOutcome ||
       !programOutcome ||
-      !bloomsLevel
+      !bloomsLevel ||
+      !piCode
     )
       throw { status: StatusCodes.BAD_REQUEST, message: "Missing fields" };
 
     const newQuestion = await addObjectiveQuestionService({
       question,
       options,
+      imageFile,
       courseCode,
+      unit,
       courseOutcome,
       programOutcome,
       bloomsLevel,
-      imageFile,
+      piCode,
     });
 
     res.status(StatusCodes.CREATED).json(newQuestion);
@@ -99,9 +105,11 @@ const addSubjectiveQuestionController = async (req, res) => {
       question,
       marks,
       courseCode,
+      unit,
       courseOutcome,
       programOutcome,
       bloomsLevel,
+      piCode,
     } = req.body;
     const imageFile = req.file;
 
@@ -109,20 +117,24 @@ const addSubjectiveQuestionController = async (req, res) => {
       !question ||
       !marks ||
       !courseCode ||
+      !unit ||
       !courseOutcome ||
       !programOutcome ||
-      !bloomsLevel
+      !bloomsLevel ||
+      !piCode
     )
       throw { status: StatusCodes.BAD_REQUEST, message: "Missing fields" };
 
     const newQuestion = await addSubjectiveQuestionService({
       question,
       marks,
+      imageFile,
       courseCode,
+      unit,
       courseOutcome,
       programOutcome,
       bloomsLevel,
-      imageFile,
+      piCode,
     });
 
     res.status(StatusCodes.CREATED).json(newQuestion);

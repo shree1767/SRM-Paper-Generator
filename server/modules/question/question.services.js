@@ -22,11 +22,13 @@ const getObjectiveQuestionService = async () => {
 const addObjectiveQuestionService = async ({
   question,
   options,
+  imageFile,
   courseCode,
+  unit,
   courseOutcome,
   programOutcome,
   bloomsLevel,
-  imageFile,
+  piCode,
 }) => {
   try {
     const objectId = new mongoose.Types.ObjectId();
@@ -53,9 +55,11 @@ const addObjectiveQuestionService = async ({
       options,
       image,
       courseCode,
+      unit,
       courseOutcome,
       programOutcome,
       bloomsLevel,
+      piCode,
     });
 
     await newQuestion.save();
@@ -78,11 +82,13 @@ const getSubjectiveQuestionService = async () => {
 const addSubjectiveQuestionService = async ({
   question,
   marks,
+  imageFile,
   courseCode,
+  unit,
   courseOutcome,
   programOutcome,
   bloomsLevel,
-  imageFile,
+  piCode,
 }) => {
   try {
     const objectId = new mongoose.Types.ObjectId();
@@ -109,9 +115,11 @@ const addSubjectiveQuestionService = async ({
       marks,
       image,
       courseCode,
+      unit,
       courseOutcome,
       programOutcome,
       bloomsLevel,
+      piCode,
     });
 
     await newQuestion.save();
