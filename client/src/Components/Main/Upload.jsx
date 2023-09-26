@@ -3,11 +3,9 @@ import React, { useState } from "react";
 const Upload = () => {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
-  const [stats, setStats] = useState({
-    CO: "",
-    PO: "",
-    BL: "",
-  });
+  const [courseOutcome,setCourseOutcome] = useState("")
+  const [programOutcome,setProgramOutcome] = useState("")
+  const [bloomsLevel,setBloomsLevel] = useState("")
 
   const [courseCode, setCourseCode] = useState("");
 
@@ -18,7 +16,6 @@ const Upload = () => {
   const [courseCodeSub, setCourseCodeSub] = useState("");
 
   const objectiveAdd = async () => {
-    console.log(question, options, stats,courseCode);
     let response = await fetch("http://localhost:8000/objective", {
       method: "POST",
       headers: {
@@ -27,8 +24,10 @@ const Upload = () => {
       body: JSON.stringify({
         question: question,
         options: options,
-        stats:stats,
         courseCode: courseCode,
+        courseOutcome:courseOutcome,
+        programOutcome:programOutcome,
+        bloomsLevel : bloomsLevel,
       }),
     });
     const data = await response.json();
@@ -96,13 +95,8 @@ const Upload = () => {
                   <label className="font-regular text-sm pr-3">CO</label>
                   <input
                     type="number"
-                    value={stats.CO}
-                    onChange={(e) =>
-                      setStats({
-                        ...stats,
-                        CO: parseInt(e.target.value),
-                      })
-                    }
+                    value={courseOutcome}
+                    onChange={(e) =>setCourseOutcome(e.target.value)}
                     className="border rounded p-2 w-20 ml-12"
                     placeholder=""
                     required
@@ -112,13 +106,8 @@ const Upload = () => {
                   <label className="font-regular text-sm pr-3">PO</label>
                   <input
                     type="number"
-                    value={stats.PO}
-                    onChange={(e) =>
-                      setStats({
-                        ...stats,
-                        PO: parseInt(e.target.value),
-                      })
-                    }
+                    value={programOutcome}
+                    onChange={(e) =>setProgramOutcome(e.target.value)}
                     className="border rounded p-2 w-20"
                     placeholder=""
                     required
@@ -128,13 +117,8 @@ const Upload = () => {
                   <label className="font-regular text-sm pr-3">BL</label>
                   <input
                     type="number"
-                    value={stats.BL}
-                    onChange={(e) =>
-                      setStats({
-                        ...stats,
-                        BL: parseInt(e.target.value),
-                      })
-                    }
+                    value={bloomsLevel}
+                    onChange={(e) =>setBloomsLevel(e.target.value)}
                     className="border rounded p-2 w-20"
                     placeholder=""
                     required

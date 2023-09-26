@@ -23,9 +23,9 @@ const Template = () => {
               SRM Nagar,Kattankulathur-603203, Chengalpattu District, Tamil Nadu
             </p>
             <p>
-              Academic Year: <span>2022-23 </span>
-              <span className="font-[600]">(EVEN) </span>
-              <span className="font-[600]">SET 2</span>
+              Academic Year: <span contentEditable={true}>2022-23 </span>
+              <span className="font-[600]" contentEditable={true}>(EVEN) </span>
+              <span className="font-[600]" contentEditable={true}>SET 2</span>
             </p>
           </div>
           <div className="border w-[15vw] text-center py-5">
@@ -36,7 +36,7 @@ const Template = () => {
         <div className="flex justify-between font-[600] text-[15px] space-x-10 px-20">
           <div>
             <p>
-              Test:<span className="font-[350]">CLAT3</span>
+              Test:<span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
             </p>
             <p>
               Course Code & Title:{" "}
@@ -45,15 +45,15 @@ const Template = () => {
               </span>
             </p>
             <p>
-              Year & Sem: <span className="font-[350]">2022-23 EVEN</span>
+              Year & Sem: <span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
             </p>
           </div>
           <div>
             <p>
-              Date:<span className="font-[350]">28-04-2023</span>
+              Date:<span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
             </p>
             <p>
-              Duration:<span className="font-[350]">1 period</span>
+              Duration:<span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
             </p>
             <p>
               Max.Marks:<span className="font-[350]">25</span>
