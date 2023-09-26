@@ -26,6 +26,17 @@ const UserSchema = new Schema({
     unique: true,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["superuser", "admin", "user"],
+    default: "user",
+    required: true,
+  },
+  approved: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 const User = model("User", UserSchema);

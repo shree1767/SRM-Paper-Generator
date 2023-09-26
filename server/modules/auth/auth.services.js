@@ -18,6 +18,12 @@ const loginService = async (email, password) => {
       message: "Invalid credentials",
     };
 
+  if (!user.approved)
+    throw {
+      status: StatusCodes.UNAUTHORIZED,
+      message: "User has not been approved by admin",
+    };
+
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });

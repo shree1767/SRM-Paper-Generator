@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 
-const router = express.Router();
+const questionRouter = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const {
@@ -11,17 +11,17 @@ const {
   addSubjectiveQuestionController,
 } = require("./question.controllers");
 
-router.get("/objective", getObjectiveQuestionController);
-router.post(
+questionRouter.get("/objective", getObjectiveQuestionController);
+questionRouter.post(
   "/objective",
   upload.single("image"),
   addObjectiveQuestionController,
 );
-router.get("/subjective", getSubjectiveQuestionController);
-router.post(
+questionRouter.get("/subjective", getSubjectiveQuestionController);
+questionRouter.post(
   "/subjective",
   upload.single("image"),
   addSubjectiveQuestionController,
 );
 
-module.exports = router;
+module.exports = questionRouter;
