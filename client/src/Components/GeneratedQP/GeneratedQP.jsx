@@ -1,12 +1,14 @@
-import React,{useState,useEffect} from 'react';
-import { FaDownload, FaEdit } from 'react-icons/fa';
-import Template from './Template';
+import html2canvas from "html2canvas";
 import JsPDF from "jspdf";
-import html2canvas from 'html2canvas';
-import Confetti from 'react-confetti';
-import './results.css'
+import React, { useEffect, useState } from "react";
+import Confetti from "react-confetti";
+import { FaDownload, FaEdit } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import Template from "./Template";
+import "./results.css";
 const GeneratedQP = () => {
   const [showConfetti, setShowConfetti] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     // Hide the Confetti after 2 seconds
@@ -25,10 +27,9 @@ const GeneratedQP = () => {
     const elementToConvert = document.querySelector("#report");
 
     html2canvas(elementToConvert).then((canvas) => {
-
       const imgData = canvas.toDataURL("image/jpeg");
 
-      report.addImage(imgData, "JPEG",10, 10, 590, 800);
+      report.addImage(imgData, "JPEG", 10, 10, 590, 800);
 
       report.save("report.pdf");
     });
@@ -37,7 +38,9 @@ const GeneratedQP = () => {
   return (
     <div className=" mx-auto p-8 md:p-20 mt-12 h-full justify-center bg-[#F6F6F6]">
       <div className="">
-        {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+        {showConfetti && (
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+        )}
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center">
         <div className="md:items-center">
@@ -49,19 +52,25 @@ const GeneratedQP = () => {
           </p>
         </div>
         <div className="flex space-x-10 mt-4 md:mt-0">
-          <button className="flex items-center text-[#0C4DA1] hover:text-black" onClick={generatePDF}>
+          <button
+            className="flex items-center text-[#0C4DA1] hover:text-black"
+            onClick={generatePDF}
+          >
             <span className="mr-3">Edit Template</span>
-            <FaEdit className='w-5 h-5'/>
+            <FaEdit className="w-5 h-5" />
           </button>
-          <button className="flex items-center text-[#0C4DA1] hover:text-black" onClick={generatePDF}>
+          <button
+            className="flex items-center text-[#0C4DA1] hover:text-black"
+            onClick={generatePDF}
+          >
             <span className="mr-3">Print</span>
-            <FaDownload className='w-5 h-5'/>
+            <FaDownload className="w-5 h-5" />
           </button>
         </div>
       </div>
       {/* display generated question paper here */}
-      <div id='report'>
-        <Template/>
+      <div id="report">
+        <Template questions={location.state} />
       </div>
       {/* / */}
     </div>

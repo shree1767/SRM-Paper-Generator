@@ -2,8 +2,9 @@ import React from "react";
 import logo from "./assets/logo.svg";
 import "./template.css";
 
-const Template = () => {
-  
+const Template = ({ questions }) => {
+  const { objective, subjectivie } = questions;
+
   return (
     <div className="page w-[210mm] shadow-lg h-[297mm] bg-white px-6 py-10 my-10 mx-auto justify-center items-center">
       <div className="page-content">
@@ -75,27 +76,42 @@ const Template = () => {
             </thead>
             <tbody>
               {/* MCQ Question */}
-              <tr>
-                <td className="font-[600] text-center border">1</td>
-                <td className="pl-3 border py-3">
-                  <p className="font-[600] ">
-                    What are the advantages to Waste of Energy?
-                  </p>
-                  <ol style={{ listStyleType: "lower-alpha" }} className="pl-3">
-                    <li>It is economical</li>
-                    <li>Reduce volume of waste</li>
-                    <li>Collection</li>
-                    <li>High degree of sophistication is required</li>
-                  </ol>
-                </td>
-                <td className=" text-center border">1</td>
-                <td className="text-center border">1,2,3</td>
-                <td className="text-center border">4,5</td>
-                <td className="text-center border">1,2,3,4 and 9</td>
-              </tr>
+              {objective.map(
+                (
+                  {
+                    question,
+                    options,
+                    courseOutcome,
+                    programOutcome,
+                    bloomsLevel,
+                  },
+                  index,
+                ) => (
+                  <tr key={index}>
+                    <td className="font-[600] text-center border">
+                      {index + 1}
+                    </td>
+                    <td className="pl-3 border py-3">
+                      <p className="font-[600] ">{question}</p>
+                      <ol
+                        style={{ listStyleType: "lower-alpha" }}
+                        className="pl-3"
+                      >
+                        {options.map((option, index) => (
+                          <li key={index}>{option}</li>
+                        ))}
+                      </ol>
+                    </td>
+                    <td className=" text-center border">1</td>
+                    <td className="text-center border">{bloomsLevel}</td>
+                    <td className="text-center border">{courseOutcome}</td>
+                    <td className="text-center border">{programOutcome}</td>
+                  </tr>
+                ),
+              )}
 
               {/* Normal Question */}
-              <tr>
+              {/* <tr>
                 <td className="font-[600] text-center border">6</td>
                 <td className="font-[600] pl-3 border">
                   Explain about solid waste management.
@@ -104,7 +120,7 @@ const Template = () => {
                 <td className="text-center border">1,2,3</td>
                 <td className="text-center border">4,5</td>
                 <td className="text-center border">1,2,3,4 and 9</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

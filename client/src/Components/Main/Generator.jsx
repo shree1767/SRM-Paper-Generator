@@ -45,7 +45,7 @@ const Generator = () => {
     console.log(data);
 
     if (response.status === 200) {
-      navigate("/results");
+      navigate("/results", { state: data });
     }
   };
 
