@@ -10,7 +10,7 @@ const CourseSchema = new Schema({
     type: String,
     required: true,
   },
-  table: {
+  image: {
     type: String,
     required: false,
   },

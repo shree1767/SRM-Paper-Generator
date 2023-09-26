@@ -6,10 +6,6 @@ const SubjectiveQuestion = require("../models");
 
 const generate = async (req, res) => {
   try {
-    // const { user } = req;
-    // if (!user) {
-    //   return res.status(401).json({ message: "Unauthorized" });
-    // }
     const { courseCode, markScheme } = req.body;
 
     const { mcq, subjectiveMarks } = markScheme;

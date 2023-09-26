@@ -8,12 +8,6 @@ const {
 } = require("./question.services");
 
 const getObjectiveQuestionController = async (req, res) => {
-  const { user } = req;
-  if (!user)
-    return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ message: "Unauthorized" });
-
   try {
     const questions = await getObjectiveQuestionService();
     res.status(StatusCodes.OK).json(questions);
@@ -25,12 +19,6 @@ const getObjectiveQuestionController = async (req, res) => {
 };
 
 const addObjectiveQuestionController = async (req, res) => {
-  const { user } = req;
-  if (!user)
-    return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ message: "Unauthorized" });
-
   try {
     const {
       question,
@@ -77,12 +65,6 @@ const addObjectiveQuestionController = async (req, res) => {
 };
 
 const getSubjectiveQuestionController = async (req, res) => {
-  const { user } = req;
-  if (!user)
-    return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ message: "Unauthorized" });
-
   try {
     const questions = await getSubjectiveQuestionService();
     res.status(200).json(questions);
@@ -94,12 +76,6 @@ const getSubjectiveQuestionController = async (req, res) => {
 };
 
 const addSubjectiveQuestionController = async (req, res) => {
-  const { user } = req;
-  if (!user)
-    return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ message: "Unauthorized" });
-
   try {
     const {
       question,

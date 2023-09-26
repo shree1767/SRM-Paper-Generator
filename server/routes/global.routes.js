@@ -5,6 +5,7 @@ const passport = require("../configs/passport.config");
 const authRoutes = require("../modules/auth/auth.routes");
 const questionRoutes = require("../modules/question/question.routes");
 const adminRoutes = require("../modules/admin/admin.routes");
+const courseRoutes = require("../modules/course/course.routes");
 
 const generateRoutes = require("./generate");
 
@@ -20,5 +21,10 @@ globalRouter.use(
   generateRoutes,
 );
 globalRouter.use("/admin", adminRoutes);
+globalRouter.use(
+  "/course",
+  passport.authenticate("jwt", { session: false }),
+  courseRoutes,
+);
 
 module.exports = globalRouter;

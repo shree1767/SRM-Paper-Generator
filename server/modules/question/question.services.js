@@ -9,6 +9,7 @@ const {
 
 const { firebaseApp } = require("../../configs/firebase.config");
 const { ObjectiveQuestion, SubjectiveQuestion } = require("../../models");
+const { optimizeImage } = require("../../utils");
 
 const getObjectiveQuestionService = async () => {
   const questions = await ObjectiveQuestion.find();
@@ -32,20 +33,17 @@ const addObjectiveQuestionService = async ({
 }) => {
   try {
     const objectId = new mongoose.Types.ObjectId();
-    const fileName = objectId.toString() + ".";
-    if (imageFile) imageFile.originalname.split(".").pop().toLowerCase();
 
     let image = null;
 
     if (imageFile) {
-      console.log("hello");
       const storage = getStorage(firebaseApp);
       const imagesRef = ref(
         storage,
-        `images/objective/${courseCode}/${fileName}`,
+        `images/objective/${courseCode}/${objectId}.webp`,
       );
 
-      await uploadBytes(imagesRef, imageFile.buffer);
+      await uploadBytes(imagesRef, optimizeImage(imageFile.buffer));
       image = await getDownloadURL(imagesRef);
     }
 
@@ -92,20 +90,17 @@ const addSubjectiveQuestionService = async ({
 }) => {
   try {
     const objectId = new mongoose.Types.ObjectId();
-    const fileName = objectId.toString() + ".";
-    if (imageFile) imageFile.originalname.split(".").pop().toLowerCase();
 
     let image = null;
 
     if (imageFile) {
-      console.log("hello");
       const storage = getStorage(firebaseApp);
       const imagesRef = ref(
         storage,
-        `images/subjective/${courseCode}/${fileName}`,
+        `images/subjective/${courseCode}/${objectId}.webp`,
       );
 
-      await uploadBytes(imagesRef, imageFile.buffer);
+      await uploadBytes(imagesRef, optimizeImage(imageFile.buffer));
       image = await getDownloadURL(imagesRef);
     }
 

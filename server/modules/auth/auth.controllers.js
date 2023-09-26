@@ -5,12 +5,6 @@ const { loginService, signupService } = require("./auth.services");
 const authController = async (req, res) => {
   const { user } = req;
 
-  if (!user) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({
-      message: "Unauthorized",
-    });
-  }
-
   return res.status(StatusCodes.OK).json({
     message: "Authorized",
     user,
