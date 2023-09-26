@@ -12,14 +12,13 @@ const addObjective = async (req, res) => {
       options,
       courseCode,
       courseOutcome,
-      proramOutcome,
+      programOutcome,
       bloomsLevel,
     } = req.body;
 
     const newQuestion = new ObjectiveQuestion({
       question,
       options,
-      answer,
       courseCode,
       courseOutcome,
       programOutcome,

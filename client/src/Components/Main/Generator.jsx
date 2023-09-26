@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
 import "./Main.css";
@@ -31,23 +31,21 @@ const Generator = () => {
   const examtypeOptions = [{ value: "ct1", label: "CT-1" }];
 
   const generatePaper = async () => {
-    let response = await fetch(
-      "http://localhost:8000/generate",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          courseCode: courseCode,
-          markScheme: markScheme,
-        })
+    let response = await fetch("http://localhost:8000/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        courseCode: courseCode,
+        markScheme: markScheme,
+      }),
+    });
     const data = await response.json();
+    console.log(data);
 
-    if(response.status === 200){
-      navigate('/results');
+    if (response.status === 200) {
+      navigate("/results");
     }
   };
 

@@ -19,7 +19,6 @@ const addSubjective = async (req, res) => {
 
     const newQuestion = new SubjectiveQuestion({
       question,
-      answer,
       marks,
       department,
       courseCode,

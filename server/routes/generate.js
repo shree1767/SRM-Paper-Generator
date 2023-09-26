@@ -13,7 +13,7 @@ const generate = async (req, res) => {
     // }
     const { courseCode, markScheme } = req.body;
 
-    const { mcq, subjectiveMarks } = JSON.parse(markScheme);
+    const { mcq, subjectiveMarks } = markScheme;
     const subjectiveMarksExists = subjectiveMarks
       ? Object.keys(subjectiveMarks).length > 0
       : false;
