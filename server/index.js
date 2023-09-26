@@ -2,9 +2,11 @@
 require("dotenv").config();
 
 const express = require("express");
-const mongoose = require("mongoose");
-const passport = require("./passport.config");
 const cors = require("cors");
+
+const passport = require("./configs/passport.config");
+const { initializeFirebase } = require("./configs/firebase.config");
+const { connectToDb } = require("./configs/database.config");
 
 // Initialize express app
 const app = express();
@@ -17,32 +19,11 @@ app.use(passport.initialize());
 app.use(cors());
 
 // Routes
-const authRoutes = require("./routes/auth");
-const questionRoutes = require("./routes/questions");
-const generateRoutes = require("./routes/generate");
+const globalRouter = require("./routes/global.routes");
 
-app.use("/auth", authRoutes);
-app.use(
-  "/question",
-  passport.authenticate("jwt", { session: false }),
-  questionRoutes,
-);
-app.use(
-  "/generate",
-  // passport.authenticate("jwt", { session: false }),
-  generateRoutes,
-);
+app.use("/", globalRouter);
 
 // MongoDB Config and server start
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("MongoDB connected");
-    app.listen(port, () => console.log(`Server running on port ${port}`));
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+connectToDb();
+initializeFirebase();
+app.listen(port, () => console.log(`Server running on port ${port}`));

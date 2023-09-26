@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const ObjectiveQuestion = require("../models/question/Objective");
-const SubjectiveQuestion = require("../models/question/Subjective");
+const ObjectiveQuestion = require("../models");
+const SubjectiveQuestion = require("../models");
 
 const generate = async (req, res) => {
   try {
@@ -54,7 +54,7 @@ const generate = async (req, res) => {
         },
       ]);
       if (questions.length < markScheme[marks]) {
-        throw new Error(`Not enough objective questions`);
+        throw new Error("Not enough objective questions");
       }
       return questions;
     };
