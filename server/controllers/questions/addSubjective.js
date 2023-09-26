@@ -7,7 +7,15 @@ const addSubjective = async (req, res) => {
   }
 
   try {
-    const { question, answer, marks, department, courseCode } = req.body;
+    const {
+      question,
+      marks,
+      department,
+      courseCode,
+      courseOutcome,
+      programOutcome,
+      bloomsLevel,
+    } = req.body;
 
     const newQuestion = new SubjectiveQuestion({
       question,
@@ -15,6 +23,9 @@ const addSubjective = async (req, res) => {
       marks,
       department,
       courseCode,
+      courseOutcome,
+      programOutcome,
+      bloomsLevel,
     });
 
     await newQuestion.save();

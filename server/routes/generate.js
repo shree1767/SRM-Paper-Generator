@@ -6,36 +6,29 @@ const SubjectiveQuestion = require("../models/question/Subjective");
 
 const generate = async (req, res) => {
   try {
+    console.log(req.body);
     // const { user } = req;
     // if (!user) {
     //   return res.status(401).json({ message: "Unauthorized" });
     // }
     const { courseCode, markScheme } = req.body;
 
-    const { mcq, subjectiveMarks } = markScheme;
-    const subjectiveMarksExists = Object.keys(subjectiveMarks).length > 0;
+    const { mcq, subjectiveMarks } = JSON.parse(markScheme);
+    const subjectiveMarksExists = subjectiveMarks
+      ? Object.keys(subjectiveMarks).length > 0
+      : false;
 
     const getSubjectiveQuestions = async (marks) => {
       const questions = await SubjectiveQuestion.aggregate([
         { $match: { courseCode, marks } },
         { $sample: { size: subjectiveMarks[marks] } },
-        { $project: { _id: 0, question: 1 } },
-      ]);
-      if (questions.length < markScheme[marks]) {
-        throw new Error(`Not enough ${marks} mark questions`);
-      }
-      return questions;
-    };
-
-    const getObjectiveQuestions = async (marks) => {
-      const questions = await ObjectiveQuestion.aggregate([
-        { $match: { courseCode } },
-        { $sample: { size: mcq } },
         {
           $project: {
             _id: 0,
             question: 1,
-            options: 1,
+            courseOutcome: 1,
+            programOutcome: 1,
+            bloomsLevel: 1,
           },
         },
       ]);
@@ -45,16 +38,36 @@ const generate = async (req, res) => {
       return questions;
     };
 
+    const getObjectiveQuestions = async (marks) => {
+      console.log(marks);
+      const questions = await ObjectiveQuestion.aggregate([
+        { $match: { courseCode } },
+        { $sample: { size: marks } },
+        {
+          $project: {
+            _id: 0,
+            question: 1,
+            options: 1,
+            courseOutcome: 1,
+            programOutcome: 1,
+            bloomsLevel: 1,
+          },
+        },
+      ]);
+      if (questions.length < markScheme[marks]) {
+        throw new Error(`Not enough objective questions`);
+      }
+      return questions;
+    };
+
     const objective = await getObjectiveQuestions(mcq);
 
     const subjective = {};
 
-    await Promise.all([
-      ...(subjectiveMarksExists &&
-        Object.keys(subjectiveMarks).map((marks) =>
-          subjective[marks] = getSubjectiveQuestions(marks),
-        )),
-    ]);
+    subjectiveMarksExists &&
+      Object.keys(subjectiveMarks).map(
+        (marks) => (subjective[marks] = getSubjectiveQuestions(marks)),
+      );
 
     const response = { objective };
     if (subjectiveMarksExists) response.subjective = subjective;

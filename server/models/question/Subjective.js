@@ -5,15 +5,23 @@ const SubjectiveQuestionSchema = new Schema({
     type: String,
     required: true,
   },
-  answer: {
-    type: [String],
-    required: true,
-  },
   marks: {
     type: Number,
     required: true,
   },
   courseCode: {
+    type: String,
+    required: true,
+  },
+  courseOutcome: {
+    type: String,
+    required: true,
+  },
+  programOutcome: {
+    type: String,
+    required: true,
+  },
+  bloomsLevel: {
     type: String,
     required: true,
   },
