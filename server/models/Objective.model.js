@@ -1,7 +1,5 @@
 const { Schema, model, models } = require("mongoose");
 
-const Course = require("./Course.model");
-
 const ObjectiveQuestionSchema = new Schema({
   question: {
     type: String,
@@ -40,17 +38,11 @@ const ObjectiveQuestionSchema = new Schema({
     type: String,
     required: true,
   },
-});
-
-ObjectiveQuestionSchema.pre("save", async (next) => {
-  try {
-    const course = await Course.findOne({ code: this.courseCode });
-    if (!course) throw new Error("Course not found");
-    this.course = course._id;
-    next();
-  } catch (error) {
-    next(error);
-  }
+  addedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 const ObjectiveQuestion =

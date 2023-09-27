@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ObjectiveQuestion = require("../models");
-const SubjectiveQuestion = require("../models");
+const { ObjectiveQuestion, SubjectiveQuestion } = require("../models");
 
 const generate = async (req, res) => {
   try {
@@ -34,7 +33,6 @@ const generate = async (req, res) => {
     };
 
     const getObjectiveQuestions = async (marks) => {
-      console.log(marks);
       const questions = await ObjectiveQuestion.aggregate([
         { $match: { courseCode } },
         { $sample: { size: marks } },

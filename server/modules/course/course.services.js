@@ -60,7 +60,7 @@ const putCourseService = async ({ code, title, imageFile }) => {
     const storage = getStorage(firebaseApp);
     const imagesRef = ref(storage, `images/course/${code}.webp`);
 
-    await uploadBytes(imagesRef, optimizeImage(imageFile.buffer));
+    await uploadBytes(imagesRef, await optimizeImage(imageFile.buffer));
     const image = await getDownloadURL(imagesRef);
 
     course.title = title;
@@ -99,7 +99,7 @@ const patchCourseImageService = async ({ code, imageFile }) => {
     const storage = getStorage(firebaseApp);
     const imagesRef = ref(storage, `images/course/${code}.webp`);
 
-    await uploadBytes(imagesRef, optimizeImage(imageFile.buffer));
+    await uploadBytes(imagesRef, await optimizeImage(imageFile.buffer));
     const image = await getDownloadURL(imagesRef);
 
     course.image = image;
