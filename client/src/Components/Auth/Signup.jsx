@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 
 const Signup = () => {
@@ -7,13 +7,15 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
+  const [designation, setDesignation] = useState("");
+  const [employeeID, setEmployeeID] = useState("");
   const { user, signup } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    await signup({ name, email, password, department });
+    await signup({ name, email, password, department,designation,employeeID });
   };
 
   useEffect(() => {
@@ -22,8 +24,8 @@ const Signup = () => {
 
   return (
     <div className="mx-auto p-8 md:p-20 mt-12 h-[93vh] flex justify-center items-center bg-[#F6F6F6]">
-      <div className="p-6 rounded-lg bg-white md:w-[40%] w-[95%] md:h-[95%] h-[70%] shadow-lg flex flex-col justify-center items-center">
-        <h2 className="text-3xl font-medium my-6">Sign Up</h2>
+      <div className="p-6 rounded-lg bg-white md:w-[40%] w-[95%] md:h-[110%] mt-10 shadow-lg flex flex-col justify-center items-center">
+        <h2 className="text-3xl font-medium">Sign Up</h2>
         <form onSubmit={(e) => handleSignUp(e)} className="w-[70%] max-w-md">
           <div className="mb-4">
             <label
@@ -97,7 +99,43 @@ const Signup = () => {
               required
             />
           </div>
-          <div className="flex items-center mt-5 justify-evenly">
+          <div className="mb-4">
+            <label
+              htmlFor="designation"
+              className="block text-gray-700 text-md font-medium mb-2"
+            >
+              Designation
+            </label>
+            <input
+              type="text"
+              id="designation"
+              name="designation"
+              value={designation}
+              onChange={(e) => setDesignation(e.target.value)}
+              placeholder="Enter your Designation"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="employeeID"
+              className="block text-gray-700 text-md font-medium mb-2"
+            >
+              Employee ID
+            </label>
+            <input
+              type="text"
+              id="employeeID"
+              name="employeeID"
+              value={employeeID}
+              onChange={(e) => setEmployeeID(e.target.value)}
+              placeholder="Enter your Employee ID"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+          <div className="flex items-center mt-3 justify-evenly">
             <button
               type="submit"
               className="bg-[#0C4DA1] text-white py-3 px-5 md:px-20 rounded"
