@@ -35,6 +35,14 @@ const GeneratedQP = () => {
     });
   };
 
+  const [editPaper, setEditPaper] = useState({
+    year: "",
+    set_type: "",
+    set_number: "",
+    date: "",
+    duration: "",
+    sem: "",
+  });
   return (
     <div className=" mx-auto p-8 md:p-20 mt-12 h-full justify-center bg-[#F6F6F6]">
       <div className="">
@@ -69,8 +77,83 @@ const GeneratedQP = () => {
         </div>
       </div>
       {/* display generated question paper here */}
-      <div id="report">
-        <Template questions={location.state} />
+      <div id="report" className="md:flex md:justify-between w-[100vw]">
+        <div className="my-10 bg-[#E4B315] p-5 shadow-xl h-1/2 rounded-md">
+          <form className="space-y-5 font-semibold">
+              <div className="flex space-x-2 items-center ">
+                <label>Academic Year</label>
+                <input
+                type="text"
+                  value={editPaper.year}
+                  onChange={(e) =>
+                    setEditPaper((prev) => ({ ...prev, year: e.target.value }))
+                  }
+                  className="border rounded p-2"
+                  placeholder="2022-2023"
+                />
+              </div>
+              <div className="flex space-x-2 items-center">
+                <label>Set Type</label>
+                <input
+                type="text"
+                  value={editPaper.set_type}
+                  onChange={(e) =>
+                    setEditPaper((prev) => ({ ...prev, set_type: e.target.value }))
+                  }
+                  className="border rounded p-2"
+                  placeholder="ODD or EVEN"
+                />
+              </div>
+              <div className="flex space-x-2 items-center">
+                <label>Set Number</label>
+                <input
+                type="text"
+                  value={editPaper.set_number}
+                  onChange={(e) =>
+                    setEditPaper((prev) => ({ ...prev, set_number: e.target.value }))
+                  }
+                  className="border rounded p-2"
+                  placeholder="C"
+                />
+              </div>
+              <div className="flex space-x-2 items-center">
+                <label>Date</label>
+                <input
+                type="text"
+                  value={editPaper.date}
+                  onChange={(e) =>
+                    setEditPaper((prev) => ({ ...prev, date: e.target.value }))
+                  }
+                  className="border rounded p-2"
+                />
+              </div>
+              <div className="flex space-x-2 items-center">
+                <label>Duration</label>
+                <input
+                type="text"
+                  value={editPaper.duration}
+                  onChange={(e) =>
+                    setEditPaper((prev) => ({ ...prev, duration: e.target.value }))
+                  }
+                  className="border rounded p-2"
+                  placeholder="60mins"
+                />
+              </div>
+              <div className="flex space-x-2 items-center">
+                <label>Semester</label>
+                <input
+                type="text"
+                  value={editPaper.sem}
+                  onChange={(e) =>
+                    setEditPaper((prev) => ({ ...prev, sem: e.target.value }))
+                  }
+                  className="border rounded p-2"
+                />
+              </div>
+          </form>
+        </div>
+
+        <Template questions={location.state} year={editPaper.year} set_type={editPaper.set_type} set_number={editPaper.set_number} date={editPaper.date} duration={editPaper.duration} sem={editPaper.sem} />
       </div>
       {/* / */}
     </div>

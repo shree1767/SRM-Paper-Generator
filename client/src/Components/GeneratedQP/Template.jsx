@@ -2,9 +2,8 @@ import React from "react";
 import logo from "./assets/logo.svg";
 import "./template.css";
 
-const Template = ({ questions }) => {
-  const { objective, subjectivie } = questions;
-
+const Template = ({ questions,year,set_type,set_number,date,duration,sem }) => {
+  const { objective, subjective} = questions;
   return (
     <div className="page w-[210mm] shadow-lg h-[297mm] bg-white px-6 py-10 my-10 mx-auto justify-center items-center">
       <div className="page-content">
@@ -24,9 +23,9 @@ const Template = ({ questions }) => {
               SRM Nagar,Kattankulathur-603203, Chengalpattu District, Tamil Nadu
             </p>
             <p>
-              Academic Year: <span contentEditable={true}>2022-23 </span>
-              <span className="font-[600]" contentEditable={true}>(EVEN) </span>
-              <span className="font-[600]" contentEditable={true}>SET 2</span>
+              Academic Year: <span> {year}</span>
+              <span className="font-[600]"> ({set_type})</span>
+              <span className="font-[600]"> SET {set_number}</span>
             </p>
           </div>
           <div className="border w-[15vw] text-center py-5">
@@ -37,7 +36,7 @@ const Template = ({ questions }) => {
         <div className="flex justify-between font-[600] text-[15px] space-x-10 px-20">
           <div>
             <p>
-              Test:<span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
+              Test:<span className="font-[350]"> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
             </p>
             <p>
               Course Code & Title:{" "}
@@ -46,15 +45,15 @@ const Template = ({ questions }) => {
               </span>
             </p>
             <p>
-              Year & Sem: <span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
+              Year & Sem: <span className="font-[350]"> {year} SEM {sem}</span>
             </p>
           </div>
           <div>
             <p>
-              Date:<span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
+              Date:<span className="font-[350]"> {date}</span>
             </p>
             <p>
-              Duration:<span className="font-[350]" contentEditable={true}> 𝘳𝘦𝘲𝘶𝘪𝘳𝘦𝘥</span>
+              Duration:<span className="font-[350]"> {duration}</span>
             </p>
             <p>
               Max.Marks:<span className="font-[350]">25</span>
