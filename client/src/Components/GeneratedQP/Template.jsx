@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./assets/logo.svg";
 import "./template.css";
 
-const Template = ({ questions,year,set_type,set_number,date,duration,sem }) => {
+const Template = ({ questions,year,sem_type,set_number,date,duration,sem }) => {
   const { objective, subjective} = questions;
   return (
     <div className="page w-[210mm] shadow-lg h-full bg-white px-6 py-10 my-10 mx-auto justify-center items-center">
@@ -24,7 +24,7 @@ const Template = ({ questions,year,set_type,set_number,date,duration,sem }) => {
             </p>
             <p>
               Academic Year: <span> {year}</span>
-              <span className="font-[600]"> ({set_type})</span>
+              <span className="font-[600]"> ({sem_type})</span>
               <span className="font-[600]"> SET {set_number}</span>
             </p>
           </div>
