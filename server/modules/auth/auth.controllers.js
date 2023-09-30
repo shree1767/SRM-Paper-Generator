@@ -27,9 +27,10 @@ const loginController = async (req, res) => {
 };
 
 const signupController = async (req, res) => {
+  const { name, email, password, department, designation, employeeId } =
+    req.body;
+
   try {
-    const { name, email, password, department, designation, employeeId } =
-      req.body;
     if (
       !name ||
       !email ||

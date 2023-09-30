@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 
 const Signup = () => {
@@ -8,14 +8,21 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [designation, setDesignation] = useState("");
-  const [employeeID, setEmployeeID] = useState("");
+  const [employeeId, setEmployeeID] = useState("");
   const { user, signup } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    await signup({ name, email, password, department,designation,employeeID });
+    await signup({
+      name,
+      email,
+      password,
+      department,
+      designation,
+      employeeId,
+    });
   };
 
   useEffect(() => {
@@ -119,16 +126,16 @@ const Signup = () => {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="employeeID"
+              htmlFor="employeeId"
               className="block text-gray-700 text-md font-medium mb-2"
             >
               Employee ID
             </label>
             <input
               type="text"
-              id="employeeID"
-              name="employeeID"
-              value={employeeID}
+              id="employeeId"
+              name="employeeId"
+              value={employeeId}
               onChange={(e) => setEmployeeID(e.target.value)}
               placeholder="Enter your Employee ID"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
