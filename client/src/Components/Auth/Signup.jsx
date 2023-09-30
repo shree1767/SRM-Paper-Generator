@@ -9,13 +9,14 @@ const Signup = () => {
   const [department, setDepartment] = useState("");
   const [designation, setDesignation] = useState("");
   const [employeeID, setEmployeeID] = useState("");
+  
   const { user, signup } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    await signup({ name, email, password, department,designation,employeeID });
+    await signup({ name, email, password, department,designation,employeeID});
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import "./template.css";
 const Template = ({ questions,year,set_type,set_number,date,duration,sem }) => {
   const { objective, subjective} = questions;
   return (
-    <div className="page w-[210mm] shadow-lg h-[297mm] bg-white px-6 py-10 my-10 mx-auto justify-center items-center">
+    <div className="page w-[210mm] shadow-lg h-full bg-white px-6 py-10 my-10 mx-auto justify-center items-center">
       <div className="page-content">
         <div className="flex justify-evenly text-[15px] space-x-5 px-20 items-center">
           <div>

@@ -1,5 +1,3 @@
-import html2canvas from "html2canvas";
-import JsPDF from "jspdf";
 import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { FaDownload, FaEdit } from "react-icons/fa";
@@ -21,20 +19,6 @@ const GeneratedQP = () => {
     };
   }, []);
 
-  const generatePDF = () => {
-    const report = new JsPDF("portrait", "pt");
-
-    const elementToConvert = document.querySelector("#report");
-
-    html2canvas(elementToConvert).then((canvas) => {
-      const imgData = canvas.toDataURL("image/jpeg");
-
-      report.addImage(imgData, "JPEG", 10, 10, 590, 800);
-
-      report.save("report.pdf");
-    });
-  };
-
   const [editPaper, setEditPaper] = useState({
     year: "",
     set_type: "",
@@ -43,6 +27,22 @@ const GeneratedQP = () => {
     duration: "",
     sem: "",
   });
+
+
+  const handlePrint = () => {
+    // Create a new window or iframe for printing
+    const printWindow = window.open('', '', 'width=600,height=600');
+    
+    // Add the content you want to print to the new window or iframe
+    printWindow.document.open();
+    printWindow.document.write(
+      <Template/>
+    );
+    printWindow.document.close();
+    
+    // Print the new window or iframe
+    printWindow.print();
+  };
   return (
     <div className=" mx-auto p-8 md:p-20 mt-12 h-full justify-center bg-[#F6F6F6]">
       <div className="">
@@ -62,14 +62,13 @@ const GeneratedQP = () => {
         <div className="flex space-x-10 mt-4 md:mt-0">
           <button
             className="flex items-center text-[#0C4DA1] hover:text-black"
-            onClick={generatePDF}
           >
             <span className="mr-3">Edit Template</span>
             <FaEdit className="w-5 h-5" />
           </button>
           <button
             className="flex items-center text-[#0C4DA1] hover:text-black"
-            onClick={generatePDF}
+            onClick={handlePrint}
           >
             <span className="mr-3">Print</span>
             <FaDownload className="w-5 h-5" />

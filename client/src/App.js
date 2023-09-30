@@ -9,6 +9,9 @@ import Generator from './Components/Main/Generator';
 import Upload from './Components/Main/Upload';
 
 import GeneratedQP from './Components/GeneratedQP/GeneratedQP';
+import QuestionControl from './Components/Main/Admin/QuestionControl';
+import UserControl from './Components/Main/Admin/UserControl';
+import CourseControl from './Components/Main/Admin/CourseControl';
 
 function App() {
   return (
@@ -20,6 +23,11 @@ function App() {
         <Route path='/home' element={<Landing/>}/>
         <Route path='/generator' element={<Generator/>}/>
         <Route path='/upload' element={<Upload/>}/>
+        {/* for admins  */}
+        <Route path='/questioncontrol' element={<QuestionControl/>}/>
+        <Route path='/usercontrol' element={<UserControl/>}/>
+        <Route path='/coursecontrol' element={<CourseControl/>}/>
+        {/* . */}
         <Route path='/results' element={<GeneratedQP/>}/>
       </Routes>
     </div>
