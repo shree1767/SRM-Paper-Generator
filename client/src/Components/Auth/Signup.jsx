@@ -8,7 +8,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [designation, setDesignation] = useState("");
-  const [employeeId, setEmployeeID] = useState("");
+  const [employeeID, setEmployeeID] = useState("");
+
   const { user, signup } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const Signup = () => {
       password,
       department,
       designation,
-      employeeId,
+      employeeID,
     });
   };
 
@@ -135,7 +136,7 @@ const Signup = () => {
               type="text"
               id="employeeId"
               name="employeeId"
-              value={employeeId}
+              value={employeeID}
               onChange={(e) => setEmployeeID(e.target.value)}
               placeholder="Enter your Employee ID"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

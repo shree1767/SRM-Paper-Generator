@@ -27,17 +27,18 @@ const Landing = () => {
           </button>
         </Link>
       </div>
-      {/* {user.role === "admin" && ( */}
-        <>
+      {
+        user && user.role === 'admin' && (
+          <>
           <div>
-            <Link to="/questions">
+            <Link to="/questioncontrol">
               <button className="text-2xl border border-[#0C4DA1] px-2 py-3 text-[#0C4DA1] rounded-xl font-light">
                 Manage Questions
               </button>
             </Link>
           </div>
           <div>
-            <Link to="/professors">
+            <Link to="/usercontrol">
               <button className="text-2xl border border-[#0C4DA1] px-2 py-3 text-[#0C4DA1] rounded-xl font-light">
                 Manage Professors
               </button>
@@ -51,7 +52,9 @@ const Landing = () => {
             </Link>
           </div>
         </>
-      {/* )} */}
+        )
+      }
+       
     </div>
   );
 };
