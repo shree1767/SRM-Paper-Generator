@@ -20,9 +20,11 @@ const generate = async (req, res) => {
           $project: {
             _id: 0,
             question: 1,
+            unit: 1,
             courseOutcome: 1,
             programOutcome: 1,
             bloomsLevel: 1,
+            piCode: 1,
           },
         },
       ]);
@@ -41,9 +43,11 @@ const generate = async (req, res) => {
             _id: 0,
             question: 1,
             options: 1,
+            unit: 1,
             courseOutcome: 1,
             programOutcome: 1,
             bloomsLevel: 1,
+            piCode: 1,
           },
         },
       ]);
