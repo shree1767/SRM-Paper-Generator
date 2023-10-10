@@ -6,7 +6,7 @@ import Signup from './Components/Auth/Signup';
 import Landing from './Components/Main/Landing';
 
 import Generator from './Components/Main/Generator';
-import Upload from './Components/Main/Upload';
+import Upload from './Components/Main/Upload/Upload';
 
 import GeneratedQP from './Components/GeneratedQP/GeneratedQP';
 import QuestionControl from './Components/Main/Admin/QuestionControl';
