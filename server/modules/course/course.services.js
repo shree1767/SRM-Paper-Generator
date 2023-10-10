@@ -29,18 +29,18 @@ const getSingleCourseService = async (code) => {
   return course;
 };
 
-const addCourseService = async ({ code, title, imageFile }) => {
+const addCourseService = async ({ code, title}) => {
   try {
     const storage = getStorage(firebaseApp);
-    const imagesRef = ref(storage, `images/course/${code}.webp`);
+    // const imagesRef = ref(storage, `images/course/${code}.webp`);
 
-    await uploadBytes(imagesRef, imageFile.buffer);
-    const image = await getDownloadURL(imagesRef);
+    // await uploadBytes(imagesRef, imageFile.buffer);
+    // const image = await getDownloadURL(imagesRef);
 
     const newCourse = new Course({
       code,
       title,
-      image,
+      // image,
     });
 
     await newCourse.save();
@@ -115,9 +115,9 @@ const patchCourseImageService = async ({ code, imageFile }) => {
 const deleteCourseService = async ({ code }) => {
   try {
     const storage = getStorage(firebaseApp);
-    const imagesRef = ref(storage, `images/course/${code}.webp`);
+    // const imagesRef = ref(storage, `images/course/${code}.webp`);
 
-    await deleteObject(imagesRef);
+    // await deleteObject(imagesRef);
 
     const course = await Course.findOneAndDelete({ code });
 

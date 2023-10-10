@@ -6,6 +6,7 @@ import UserContext from "./UserContext";
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
+
   const navigate = useNavigate();
 
   const login = async (email, password) => {
@@ -29,7 +30,6 @@ const UserProvider = ({ children }) => {
     setCookie("jwt", data.token, { path: "/", expires: expiration });
 
     setUser(data.user);
-
     navigate("/home");
   };
 
@@ -87,10 +87,9 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (cookies.jwt) authorize(cookies.jwt);
-  }, []);
-
+  }, [])
   return (
-    <UserContext.Provider value={{ user, logout, login, signup }}>
+    <UserContext.Provider value={{ user, logout, login, signup,cookies}}>
       {children}
     </UserContext.Provider>
   );

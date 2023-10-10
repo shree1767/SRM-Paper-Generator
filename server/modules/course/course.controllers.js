@@ -38,15 +38,15 @@ const getSingleCourseController = async (req, res) => {
 const addCourseController = async (req, res) => {
   try {
     const { code, title } = req.body;
-    const imageFile = req.file;
+    // const imageFile = req.file;
 
-    if (!code || !title || !imageFile)
+    if (!code || !title )
       throw {
         status: StatusCodes.BAD_REQUEST,
         message: "Missing required fields",
       };
 
-    const course = await addCourseService({ code, title, imageFile });
+    const course = await addCourseService({ code, title});
 
     return res.status(StatusCodes.CREATED).json(course);
   } catch (error) {
