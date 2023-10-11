@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./Upload.css";
 import UserContext from "../../../context/UserContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ObjectiveAdd = () => {
   const [question, setQuestion] = useState("");
@@ -22,7 +24,6 @@ const ObjectiveAdd = () => {
   const { user, cookies } = useContext(UserContext);
 
   const objectiveAdd = async () => {
-    
     let response = await fetch("http://localhost:8000/question/objective", {
       method: "POST",
       headers: {
@@ -42,14 +43,17 @@ const ObjectiveAdd = () => {
         user: user,
       }),
     });
-
-    console.log(await response.json())
-    if(response.status == 201 ){
-      alert('Successfully added MCQ')
+    console.log(await response.json());
+    if (response.status == 201) {
+      toast.success("Objective added !", {
+        autoClose: 1000,
+        position: "top-center",
+      });
     }
   };
   return (
-    <div className="p-5 shadow my-5 bg-white w-full md:w-1/2 flex flex-col justify-center">
+    <div className="p-5 shadow my-5 bg-white w-full xl:w-1/2 flex flex-col justify-center">
+      <ToastContainer />
       <div className="text-2xl my-5 font-semibold text-center">
         Objective Question
       </div>
@@ -179,7 +183,7 @@ const ObjectiveAdd = () => {
               onClick={objectiveAdd}
               className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16 "
             >
-              <span className="button-text font-light">ADD</span>
+              <span className="button-text font-regular">ADD</span>
             </button>
           </div>
         </div>
