@@ -1,7 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import UserContext from "../../../context/UserContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import deleteico from './assets/delete-ico.svg'
 
 const CourseControl = () => {
   const { user, cookies } = useContext(UserContext);
@@ -11,28 +12,28 @@ const CourseControl = () => {
   const [newCourseTitle, setNewCourseTitle] = useState("");
   const [imageFile, setImageFile] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/course/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies.jwt}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch courses.");
-        }
-
-        const data = await response.json();
-        setCourses(data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/course/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.jwt}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to fetch courses.");
       }
-    };
-
+  
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
+  
+  useEffect(() => {
     fetchData();
   }, [cookies.jwt]);
 
@@ -62,6 +63,12 @@ const CourseControl = () => {
       console.log(data);
       if (response.status === 201) {
         closeModal();
+        toast.success('Course added !', {
+          autoClose: 2000, 
+          position: "top-center",
+        });
+        
+        fetchData(); 
       }
     } catch (err) {
       console.error("Error adding new course: ", err);
@@ -76,53 +83,67 @@ const CourseControl = () => {
           Authorization: `Bearer ${cookies.jwt}`,
         },
       });
-      
-      if(response.status === 201){
-        alert('Course was successfully deleted')
+  
+      if (response.status === 201) {
+        const responseData = await response.json();
+        console.log(responseData);
+
+        toast.success('Course deleted!', {
+          position: "top-right",
+          autoClose: 2000,
+        });
+      } else {
+        console.error("Error deleting course:", response.status);
       }
     } catch (error) {
       console.error("Error deleting course:", error);
     }
   };
-
+  
   return (
-    <div className="mx-auto flex flex-col space-y-5 items-center p-8 md:p-20 mt-12 h-[93vh] justify-center bg-[#F6F6F6]">
-      <h1 className="text-2xl my-5 font-semibold text-center">
+    <div className="mx-auto flex flex-col space-y-5  p-8 md:px-20 mt-20 h-full w-screen justify-center bg-[#F6F6F6]">
+      <ToastContainer />
+      <div className="flex justify-between mx-[12vw] items-center ">
+      <h1 className="text-3xl font-semibold mt-10 mb-5">
         Course Control
       </h1>
-      <table className="border-collapse md:w-1/2">
-        <thead>
-          <tr>
+      <button
+        className="text-[#0C4DA1] border border-[#0C4DA1] py-1.5 px-3 rounded-xl"
+        onClick={openModal}
+      >
+        ADD
+      </button>
+      </div>
+      <div className="flex justify-center px-5">
+      <table className="shadow border-collapse md:w-3/4">
+        <thead className="bg-neutral-200">
+          <tr className="font-semibold text-neutral-600">
             <th className="border p-2">Course Title</th>
             <th className="border p-2">Course Code</th>
             <th className="border p-2">Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-white">
           {courses.map((course) => (
             <tr key={course._id}>
               <td className="border p-2">{course.title}</td>
               <td className="border p-2">{course.code}</td>
               <td className="border p-2 text-center ">
                 <button className="w-5 h-5" onClick={() => handleDelete(course.code)}>
-                  <FontAwesomeIcon icon={faTrash} />
+                  <img src={deleteico}/>
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button
-        className="text-white bg-black rounded-full p-2"
-        onClick={openModal}
-      >
-        New Course
-      </button>
+      </div>
+    
 
       {isModalOpen && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white p-4 rounded-lg">
-            <h2 className="text-xl font-semibold mb-4">Add New Course</h2>
+          <div className="bg-white p-5 rounded-lg md:w-[30vw]">
+            <h2 className="text-xl font-semibold my-4">Add New Course</h2>
             <div className="mb-4">
               <label className="block mb-2">Code:</label>
               <input

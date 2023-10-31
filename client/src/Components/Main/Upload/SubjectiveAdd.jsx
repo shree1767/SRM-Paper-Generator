@@ -1,7 +1,9 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import UserContext from "../../../context/UserContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const SubjectiveAdd = () => {
+const SubjectiveAdd = (courses) => {
   const [questionSub, setQuestionSub] = useState("");
   const [marksSub, setMarksSub] = useState(null);
   const [imageFile, setImageFile] = useState("");
@@ -12,10 +14,9 @@ const SubjectiveAdd = () => {
   const [bloomsLevelSub, setBloomsLevel] = useState("");
   const [piCodeSub, setPiCode] = useState("");
 
-  const { user,cookies } = useContext(UserContext);
-  
+  const { user, cookies } = useContext(UserContext);
+
   const subjectiveAdd = async () => {
-   
     let response = await fetch("http://localhost:8000/question/subjective", {
       method: "POST",
       headers: {
@@ -24,27 +25,27 @@ const SubjectiveAdd = () => {
       },
       body: JSON.stringify({
         question: questionSub,
-        marks:marksSub,
-        imageFile:imageFile,
+        marks: marksSub,
+        imageFile: imageFile,
         courseCode: courseCodeSub,
         unit: unitSub,
         courseOutcome: courseOutcomeSub,
         programOutcome: programOutcomeSub,
         bloomsLevel: bloomsLevelSub,
         piCode: piCodeSub,
+        user: user,
       }),
     });
-
-    const data = await response.json();
-    
-    console.log(data);
-
-    if(response.status == 201 ){
-      alert('Successfully added !')
+    console.log(await response.json());
+    if (response.status == 201) {
+      toast.success("Subjective added !", {
+        autoClose: 1000,
+        position: "top-center",
+      });
     }
   };
   return (
-    <div className="p-5 shadow my-5 bg-white w-full md:w-1/2">
+    <div className="p-5 shadow my-5 bg-white w-full xl:w-1/2">
       <div className="text-2xl my-5 font-semibold text-center">
         Subjective Question
       </div>
@@ -90,17 +91,25 @@ const SubjectiveAdd = () => {
               Upload Image
             </label>
           </div>
-          <div className="flex md:space-x-5 items-center">
+          <div className="flex items-center md:space-x-5">
             <label>Course Code</label>
-            <input
-              type="text"
+            <select
               value={courseCodeSub}
               onChange={(e) => {
                 setCourseCodeSub(e.target.value);
               }}
-              placeholder="Course Code"
-              className="border p-2 w-3/4"
-            />
+              className="border p-2 md:w-3/4 w-full"
+              required
+            >
+              <option value="" disabled>
+                Select a Course
+              </option>
+              {courses.courses.map((course) => (
+                <option key={course.code} value={course.code}>
+                 {course.code}- {course.title} 
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="font-regular text-sm pr-3">Unit</label>
@@ -165,7 +174,7 @@ const SubjectiveAdd = () => {
               onClick={subjectiveAdd}
               className="custom-button mt-5 hover:text-black py-3 px-8 md:px-16"
             >
-              <span className="button-text font-light">ADD</span>
+              <span className="button-text font-regular">ADD</span>
             </button>
           </div>
         </div>
@@ -175,4 +184,3 @@ const SubjectiveAdd = () => {
 };
 
 export default SubjectiveAdd;
-

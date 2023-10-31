@@ -138,6 +138,7 @@ const addSubjectiveQuestionController = async (req, res) => {
       programOutcome,
       bloomsLevel,
       piCode,
+      user,
     } = req.body;
     const imageFile = req.file;
 
@@ -149,7 +150,8 @@ const addSubjectiveQuestionController = async (req, res) => {
       !courseOutcome ||
       !programOutcome ||
       !bloomsLevel ||
-      !piCode
+      !piCode ||
+      !user
     )
       throw { status: StatusCodes.BAD_REQUEST, message: "Missing fields" };
 
@@ -163,6 +165,7 @@ const addSubjectiveQuestionController = async (req, res) => {
       programOutcome,
       bloomsLevel,
       piCode,
+      user,
     });
 
     res.status(StatusCodes.CREATED).json(newQuestion);
