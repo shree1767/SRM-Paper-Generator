@@ -3,7 +3,7 @@ import UserContext from "../../../context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SubjectiveAdd = () => {
+const SubjectiveAdd = (courses) => {
   const [questionSub, setQuestionSub] = useState("");
   const [marksSub, setMarksSub] = useState(null);
   const [imageFile, setImageFile] = useState("");
@@ -91,17 +91,25 @@ const SubjectiveAdd = () => {
               Upload Image
             </label>
           </div>
-          <div className="flex md:space-x-5 items-center">
+          <div className="flex items-center md:space-x-5">
             <label>Course Code</label>
-            <input
-              type="text"
+            <select
               value={courseCodeSub}
               onChange={(e) => {
                 setCourseCodeSub(e.target.value);
               }}
-              placeholder="Course Code"
-              className="border p-2 w-3/4"
-            />
+              className="border p-2 md:w-3/4 w-full"
+              required
+            >
+              <option value="" disabled>
+                Select a Course
+              </option>
+              {courses.courses.map((course) => (
+                <option key={course.code} value={course.code}>
+                 {course.code}- {course.title} 
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="font-regular text-sm pr-3">Unit</label>
