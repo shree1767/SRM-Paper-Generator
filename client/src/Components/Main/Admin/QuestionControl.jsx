@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import {Link} from 'react-router-dom'
 import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import deleteico from "./assets/delete-ico.svg";
@@ -96,8 +97,15 @@ const QuestionControl = () => {
 
   return (
     <div className="mx-auto flex flex-col space-y-5  p-8 md:px-20 mt-20 h-full w-screen justify-center bg-[#F6F6F6]">
-      <div className="text-3xl font-semibold mx-auto mt-10 mb-5">
-        All Questions
+      <div className="flex justify-between mx-[12vw] items-center ">
+      <h1 className="text-3xl font-semibold mt-10 mb-5">
+        Question Control
+      </h1>
+      <Link to="/upload"
+        className="text-[#0C4DA1] border border-[#0C4DA1] py-1.5 px-3 rounded-xl"
+      >
+        ADD
+      </Link>
       </div>
       <div className="flex justify-center px-5">
         <table className="shadow border-collapse md:w-3/4">
